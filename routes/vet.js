@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const Ingest = require('./services/Ingest');
+const Ingest = require('../services/Ingest');
 
 var router = express.Router({
   mergeParams: true
