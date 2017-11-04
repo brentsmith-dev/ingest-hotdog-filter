@@ -16,7 +16,7 @@ var router = express.Router({
 router.route('/encoded')
   .post(function (req, res) {
 
-    //console.log(JSON.stringify(req.body));
+    console.log(JSON.stringify(req.body));
 
     try {
       var videoId = req.body["event_object[data][video][id]"];
@@ -59,16 +59,16 @@ router.route('/encoded')
 function vetVideo(video_url) {
   console.log('Start vetting : ', video_url);
   clarifai.models.predict(Clarifai.NSFW_MODEL, video_url, {video: true})
-  .then(function (response) {
-    try {
-      console.log('Response : ', JSON.stringify(response));
-    } catch (e) {
-      console.log('Error : ', e);
-    }
-  })
-  .catch(function (error) {
-    console.log('Caught Error : ', JSON.stringify(error.data));
-  });
+    .then(function (response) {
+      try {
+        console.log('Response : ', JSON.stringify(response));
+      } catch (e) {
+        console.log('Error : ', e);
+      }
+    })
+    .catch(function (error) {
+      console.log('Caught Error : ', JSON.stringify(error.data));
+    });
 }
 
 module.exports = router;
