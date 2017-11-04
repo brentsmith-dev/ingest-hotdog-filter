@@ -60,7 +60,7 @@ function vetVideo(video_url) {
   console.log('Start vetting.');
   clarifai.models.predict(Clarifai.NSFW_MODEL, video_url, {video: true})
   .then(function (response) {
-    console.log('Response : ', response);
+    console.log('Response : ', JSON.stringify(response));
   });
 }
 
