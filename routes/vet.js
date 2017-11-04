@@ -41,3 +41,5 @@ router.route('/encode')
     // Update the video record with the result in the description.
 
   });
+
+module.exports = router;
