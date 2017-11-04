@@ -21,14 +21,15 @@ router.route('/encoded')
     console.log('Video ID : ', videoId);
 
     Ingest.service.Videos.getById(videoId, (error, video) => {
-
-      console.log('Videos : ', video);
-
-      var video_url = video.playback_urls[0];
+      var video_url;
 
       if (error) {
         return console.log('Error : ', error);
       }
+
+      console.log('Videos : ', video);
+
+      video_url = video.playback_urls[0];
 
       // TODO: Make the request to Clarifai.
 
