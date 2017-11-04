@@ -7,7 +7,7 @@ var router = express.Router({
   mergeParams: true
 });
 
-router.route('/encode')
+router.route('/encoded')
   .post(function (req, res) {
 
     console.log(req.body);
