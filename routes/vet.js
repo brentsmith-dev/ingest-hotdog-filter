@@ -13,7 +13,7 @@ router.route('/encoded')
     console.log(JSON.stringify(req.body));
 
     try {
-      var videoId = req.body.event_object.data.video.id;
+      var videoId = req.body["event_object[data][video][id]"];
     } catch (error) {
       return console.log('Error : ', error);
     }
