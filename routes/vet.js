@@ -84,4 +84,27 @@ function vetVideo(video_url) {
 
 }
 
+router.route('/force')
+  .post((req, res) => {
+
+    var url = req.body.url;
+
+    clarifai.models.predict(Clarifai.GENERAL_MODEL, url, {video: true})
+    .then(function (response) {
+      try {
+        console.log('Response : ', JSON.stringify(response));
+      } catch (e) {
+        console.log('Error : ', e);
+      }
+    })
+    .catch(function (error) {
+      try {
+        console.log('Caught Error : ', error.data);
+      } catch (e) {
+        console.log('Caught another error : ', e);
+      }
+    });
+
+  });
+
 module.exports = router;
