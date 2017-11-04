@@ -58,24 +58,29 @@ router.route('/encoded')
 
 function vetVideo(video_url) {
   console.log('Start vetting : ', video_url);
+  console.log('Downloading...');
 
-  video_url = 'https://play.ingest.io/bdea6eec-76cc-4e96-8ff8-be62e69a803e/886508e2-86c8-4f7d-acf5-eae504f64857/uvt9fx97gl4339v/video.mp4';
+  request(video_url, (res) => {
+    console.log('Download complete.');
 
-  clarifai.models.predict(Clarifai.GENERAL_MODEL, video_url, {video: true})
-    .then(function (response) {
-      try {
-        console.log('Response : ', JSON.stringify(response));
-      } catch (e) {
-        console.log('Error : ', e);
-      }
-    })
-    .catch(function (error) {
-      try {
-        console.log('Caught Error : ', error);
-      } catch (e) {
-        console.log('Caught another error : ', e);
-      }
-    });
+    clarifai.models.predict(Clarifai.GENERAL_MODEL, video_url, {video: true})
+      .then(function (response) {
+        try {
+          console.log('Response : ', JSON.stringify(response));
+        } catch (e) {
+          console.log('Error : ', e);
+        }
+      })
+      .catch(function (error) {
+        try {
+          console.log('Caught Error : ', error.data);
+        } catch (e) {
+          console.log('Caught another error : ', e);
+        }
+      });
+
+  })
+
 }
 
 module.exports = router;
