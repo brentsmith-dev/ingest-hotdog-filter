@@ -59,30 +59,55 @@ router.route('/encoded')
 
 function vetVideo(video_url) {
   console.log('Start vetting : ', video_url);
-  console.log('Downloading...');
+  //console.log('Downloading...');
 
-  request(video_url, (res) => {
+  //request(video_url, (res) => {
     //console.log('Download complete.');
-    setTimeout(function () {
-      clarifai.models.predict(Clarifai.GENERAL_MODEL, video_url, {video: true})
-        .then(function (response) {
-          try {
-            console.log('Response : ', JSON.stringify(response));
-          } catch (e) {
-            console.log('Error : ', e);
-          }
-        })
-        .catch(function (error) {
-          try {
-            console.log('Caught Error : ', error.data);
-          } catch (e) {
-            console.log('Caught another error : ', e);
-          }
-        });
+   // setTimeout(function () {
+      //console.log('Download complete');
 
-    }, 30000);
+      request('https://api.clarifai.com/v2/models/e9576d86d2004ed1a38ba0cf39ecb4b1/outputs', {
+        headers: {
+          'Authentication': 'Key f2c897c9b91c4430a3ee4b53251f12c3',
+          'Content-Type': 'application/json'
+        },
+        body: {
+          inputs: [
+            {
+              data: {
+                video: {
+                  url: video_url
+                }
+              }
+            }
+          ]
+        },
+        json: true
+      }, (res) => {
+        console.log('Done : ', res);
+      });
 
-  })
+
+
+    //   clarifai.models.predict(Clarifai.GENERAL_MODEL, video_url, {video: true})
+    //     .then(function (response) {
+    //       try {
+    //         console.log('Response : ', JSON.stringify(response));
+    //       } catch (e) {
+    //         console.log('Error : ', e);
+    //       }
+    //     })
+    //     .catch(function (error) {
+    //       try {
+    //         console.log('Caught Error : ', error.data);
+    //       } catch (e) {
+    //         console.log('Caught another error : ', e);
+    //       }
+    //     });
+
+    // }, 30000);
+
+  //});
 
 }
 
