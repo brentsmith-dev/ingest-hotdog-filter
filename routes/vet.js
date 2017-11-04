@@ -68,7 +68,7 @@ function vetVideo(video_url) {
     })
     .catch(function (error) {
       try {
-        console.log('Caught Error : ', JSON.stringify(error));
+        console.log('Caught Error : ', error);
       } catch (e) {
         console.log('Caught another error : ', e);
       }
