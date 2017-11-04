@@ -102,9 +102,7 @@ app.get("/logout", (req, res) => {
   return res.redirect("/login");
 });
 
-
 app.use('/vet', vet);
-app.use('/ai', ai);
 
 app.use("/", checkAuth, index);
 

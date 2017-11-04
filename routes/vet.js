@@ -2,6 +2,11 @@
 
 const express = require('express');
 const Ingest = require('../services/Ingest');
+const Clarifai = require('clarifai');
+
+const CLARIFAI_API = nconf.get('CLARIFAI_API');
+
+var clarifai = new Clarifai.App({apiKey: CLARIFAI_API});
 
 var router = express.Router({
   mergeParams: true
@@ -10,7 +15,7 @@ var router = express.Router({
 router.route('/encoded')
   .post(function (req, res) {
 
-    console.log(JSON.stringify(req.body));
+    //console.log(JSON.stringify(req.body));
 
     try {
       var videoId = req.body["event_object[data][video][id]"];
@@ -18,7 +23,7 @@ router.route('/encoded')
       return console.log('Error : ', error);
     }
 
-    console.log('Video ID : ', videoId);
+    //console.log('Video ID : ', videoId);
 
     Ingest.service.Videos.getById(videoId, (error, response) => {
       var video_url;
@@ -30,22 +35,32 @@ router.route('/encoded')
 
       video = response.data;
 
-      console.log('Videos : ', video);
+      //console.log('Videos : ', video);
 
       video_url = video.targets[video.targets.length - 1].playback_url;
 
       // TODO: Make the request to Clarifai.
-
       console.log('Video : ', video_url);
 
+      process.nextTick(vetVideo(video_url));
+
+      // Next tick do the call to validate the video.
       res.status(200).send();
     });
 
     // Call ingest to get the video record for the url.
     // Send the video url to clarifai to determine if its safe.
-    // Setup some sort of database to handle storing the information.
+    // Write to the video description.
     // Update the video record with the result in the description.
 
   });
+
+function vetVideo(video_url) {
+  console.log('Start vetting.');
+  clarifai.models.predict(Clarifai.NSFW_MODEL, video_url, {video: true})
+  .then(function (response) {
+    console.log('Response : ', response);
+  });
+}
 
 module.exports = router;
