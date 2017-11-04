@@ -44,7 +44,7 @@ router.route('/encoded')
       // TODO: Make the request to Clarifai.
       console.log('Video : ', video_url);
 
-      setTimeout(vetVideo.bind(null, video_url), 30000);
+      setTimeout(vetVideo.bind(null, video_url), 5000);
 
       // Next tick do the call to validate the video.
       res.status(200).send();
@@ -61,26 +61,28 @@ function vetVideo(video_url) {
   console.log('Start vetting : ', video_url);
   console.log('Downloading...');
 
- // request(video_url, (res) => {
+  request(video_url, (res) => {
     //console.log('Download complete.');
+    setTimeout(function () {
+      clarifai.models.predict(Clarifai.GENERAL_MODEL, video_url, {video: true})
+        .then(function (response) {
+          try {
+            console.log('Response : ', JSON.stringify(response));
+          } catch (e) {
+            console.log('Error : ', e);
+          }
+        })
+        .catch(function (error) {
+          try {
+            console.log('Caught Error : ', error.data);
+          } catch (e) {
+            console.log('Caught another error : ', e);
+          }
+        });
 
-    clarifai.models.predict(Clarifai.GENERAL_MODEL, video_url, {video: true})
-      .then(function (response) {
-        try {
-          console.log('Response : ', JSON.stringify(response));
-        } catch (e) {
-          console.log('Error : ', e);
-        }
-      })
-      .catch(function (error) {
-        try {
-          console.log('Caught Error : ', error.data);
-        } catch (e) {
-          console.log('Caught another error : ', e);
-        }
-      });
+    }, 30000);
 
-  //})
+  })
 
 }
 
