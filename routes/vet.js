@@ -4,6 +4,7 @@ const express = require('express');
 const Ingest = require('../services/Ingest');
 const Clarifai = require('clarifai');
 const nconf = require('nconf');
+const request = require('request');
 
 const CLARIFAI_API = nconf.get('CLARIFAI_API');
 
