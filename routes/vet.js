@@ -57,7 +57,7 @@ router.route('/encoded')
   });
 
 function vetVideo(video_url) {
-  console.log('Start vetting.');
+  console.log('Start vetting : ', video_url);
   clarifai.models.predict(Clarifai.NSFW_MODEL, video_url, {video: true})
   .then(function (response) {
     try {
@@ -67,7 +67,7 @@ function vetVideo(video_url) {
     }
   })
   .catch(function (error) {
-    console.log('Caught : ', error);
+    console.log('Caught Error : ', error.data);
   });
 }
 
