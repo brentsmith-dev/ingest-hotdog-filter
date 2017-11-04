@@ -40,7 +40,7 @@ class Ingest {
     //console.log('Body: ', body);
     this.access_token = body.access_token;
     this.service = new IngestSDK({
-      token: `Bearer ${access}`
+      token: `Bearer ${this.access_token}`
     });
   }
 
