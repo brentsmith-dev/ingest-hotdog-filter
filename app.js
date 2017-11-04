@@ -6,8 +6,8 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 
-const APP_KEY = process.env.APP_KEY || require("./conf.js").APP_KEY;
-const APP_SECRET = process.env.APP_SECRET || require("./conf.js").APP_SECRET;
+//const APP_KEY = process.env.APP_KEY || require("./conf.js").APP_KEY;
+//const APP_SECRET = process.env.APP_SECRET || require("./conf.js").APP_SECRET;
 
 const passport = require("passport");
 const OAuth2Strategy = require("passport-oauth2");
@@ -28,8 +28,8 @@ passport.use(
     {
       authorizationURL: "https://login.ingest.io/authorize",
       tokenURL: "https://login.ingest.io/token",
-      clientID: APP_KEY,
-      clientSecret: APP_SECRET,
+      clientID: "fake",
+      clientSecret: "alsofake",
       response_type: "code",
       scope: "all",
       callbackURL: "/auth/ingest/callback"
@@ -67,11 +67,11 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(
+/*app.use(
   session({
     secret: require("./conf.js").SESSION_SECRET || "dj kitty"
   })
-);
+);*/
 app.use(express.static(path.join(__dirname, "public")));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -97,7 +97,6 @@ app.get("/logout", (req, res) => {
 });
 
 app.post("/vet/encoded", (req, res) => {
-  console.log('test post seen');
   console.dir(req.body);
   res.send();
 });
