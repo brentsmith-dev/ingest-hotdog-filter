@@ -10,7 +10,7 @@ var router = express.Router({
 router.route('/encoded')
   .post(function (req, res) {
 
-    console.log(req.body);
+    console.log(JSON.stringify(req.body));
 
     try {
       var videoId = req.body.event_object.data.video.id;
