@@ -43,7 +43,7 @@ router.route('/encoded')
       // TODO: Make the request to Clarifai.
       console.log('Video : ', video_url);
 
-      process.nextTick(vetVideo.bind(null, video_url));
+      setTimeout(vetVideo.bind(null, video_url), 5000);
 
       // Next tick do the call to validate the video.
       res.status(200).send();
