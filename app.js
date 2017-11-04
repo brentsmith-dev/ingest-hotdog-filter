@@ -96,6 +96,12 @@ app.get("/logout", (req, res) => {
   return res.redirect("/login");
 });
 
+app.post("/vet/encoded", (req, res) => {
+  console.log('test post seen');
+  console.dir(req.body);
+  res.send();
+});
+
 app.use("/", checkAuth, index);
 
 function checkAuth(req, res, next) {
