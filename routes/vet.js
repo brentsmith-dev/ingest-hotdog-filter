@@ -83,8 +83,8 @@ function vetVideo(video_url) {
           ]
         },
         json: true
-      }, (res) => {
-        console.log('Done : ', res);
+      }, (error, response, body) => {
+        console.log('Done : ', error, response, body);
       });
 
 
