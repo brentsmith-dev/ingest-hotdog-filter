@@ -22,6 +22,8 @@ router.route('/encoded')
 
     Ingest.service.Videos.getById(videoId, (error, video) => {
 
+      console.log('Videos : ', video);
+
       var video_url = video.playback_urls[0];
 
       if (error) {
