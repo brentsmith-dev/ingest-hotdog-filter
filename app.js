@@ -6,14 +6,20 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 
-//const APP_KEY = process.env.APP_KEY || require("./conf.js").APP_KEY;
-//const APP_SECRET = process.env.APP_SECRET || require("./conf.js").APP_SECRET;
+const nconf = require('nconf');
+nconf.argv().env();
+
+const APP_KEY = nconf.get('APP_KEY');
+const APP_SECRET = nconf.get('APP_SECRET');
 
 const passport = require("passport");
 const OAuth2Strategy = require("passport-oauth2");
 const IngestSDK = require("@ingest/ingest-node-sdk");
+const Ingest = require('./services/Ingest');
 
 const index = require("./routes/index");
+const ai = require('./routes/ai');
+const vet = require('./routes/vet');
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -96,10 +102,9 @@ app.get("/logout", (req, res) => {
   return res.redirect("/login");
 });
 
-app.post("/vet/encoded", (req, res) => {
-  console.dir(req.body);
-  res.send();
-});
+
+app.use('/vet', vet);
+app.use('/ai', ai);
 
 app.use("/", checkAuth, index);
 
