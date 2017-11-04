@@ -39,7 +39,7 @@ router.route('/encoded')
 
       //console.log('Videos : ', video);
 
-      video_url = video.targets[video.targets.length - 1].playback_url;
+      video_url = video.targets[0].playback_url;
 
       // TODO: Make the request to Clarifai.
       console.log('Video : ', video_url);
