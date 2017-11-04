@@ -39,6 +39,9 @@ class Ingest {
     //console.log('Response: ', response);
     //console.log('Body: ', body);
     this.access_token = body.access_token;
+
+    console.log('Access Token : ', this.access_token);
+
     this.service = new IngestSDK({
       token: `Bearer ${this.access_token}`
     });
