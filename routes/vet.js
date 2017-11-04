@@ -67,6 +67,7 @@ function vetVideo(video_url) {
       //console.log('Download complete');
 
       request('https://api.clarifai.com/v2/models/e9576d86d2004ed1a38ba0cf39ecb4b1/outputs', {
+        method: 'POST',
         headers: {
           'Authentication': 'Key f2c897c9b91c4430a3ee4b53251f12c3',
           'Content-Type': 'application/json'
