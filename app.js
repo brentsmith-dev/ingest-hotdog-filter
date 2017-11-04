@@ -18,7 +18,6 @@ const IngestSDK = require("@ingest/ingest-node-sdk");
 const Ingest = require('./services/Ingest');
 
 const index = require("./routes/index");
-const ai = require('./routes/ai');
 const vet = require('./routes/vet');
 
 passport.serializeUser(function(user, done) {
