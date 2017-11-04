@@ -44,7 +44,7 @@ router.route('/encoded')
       // TODO: Make the request to Clarifai.
       console.log('Video : ', video_url);
 
-      setTimeout(vetVideo.bind(null, video_url), 5000);
+      setTimeout(vetVideo.bind(null, video_url), 30000);
 
       // Next tick do the call to validate the video.
       res.status(200).send();
@@ -61,8 +61,8 @@ function vetVideo(video_url) {
   console.log('Start vetting : ', video_url);
   console.log('Downloading...');
 
-  request(video_url, (res) => {
-    console.log('Download complete.');
+ // request(video_url, (res) => {
+    //console.log('Download complete.');
 
     clarifai.models.predict(Clarifai.GENERAL_MODEL, video_url, {video: true})
       .then(function (response) {
@@ -80,7 +80,7 @@ function vetVideo(video_url) {
         }
       });
 
-  })
+  //})
 
 }
 
