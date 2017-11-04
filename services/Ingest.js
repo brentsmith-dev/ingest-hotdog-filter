@@ -37,7 +37,7 @@ class Ingest {
   tokenReceived(error, response, body) {
     //console.log('Error : ', error);
     //console.log('Response: ', response);
-    //console.log('Body: ', body);
+    console.log('Body: ', body);
     this.access_token = body.access_token;
 
     console.log('Access Token : ', this.access_token);
